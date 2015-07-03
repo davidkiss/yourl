@@ -23,21 +23,26 @@
     </div>
 </header>
 <div class="jumbotron">
-    <div class="container">
-    <h1>Shorten your url</h1>
-        <p>
-        <div class="alert alert-success" role="alert" th:if="${shortenedUrl}" th:utext="'Link created: &lt;a href=\'' + ${shortenedUrl} + '\'&gt;' + ${shortenedUrl} + '&lt;/a&gt;'"></div>
-        <form class="form-inline" th:action="@{/}" th:object="${shortenUrlRequest}" method="POST">
-            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}" th:errors="*{url}">Input is incorrect</div>
-
-            <div class="form-group">
-                <input type="text" class="form-control" id="url" name="url" placeholder="http://www.example.com"
-                       th:field="*{url}" th:class="${#fields.hasErrors('url')}? fieldError"/>
-            </div>
-            <button type="submit" class="btn btn-primary">Shorten</button>
-        </form>
-        </p>
+  <div class="container">
+  <h1>Shorten your url</h1>
+    <p>
+    <div class="alert alert-success" role="alert" th:if="${shortenedUrl}"
+      th:utext="'Link created: &lt;a href=\'' + ${shortenedUrl} + '\'&gt;' + ${shortenedUrl}
+       + '&lt;/a&gt;'">
     </div>
+    <form class="form-inline" th:action="@{/}" th:object="${shortenUrlRequest}" method="POST">
+      <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}"
+         th:errors="*{url}">Input is incorrect</div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" id="url" name="url"
+           placeholder="http://www.example.com"
+           th:field="*{url}" th:class="${#fields.hasErrors('url')}? fieldError"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Shorten</button>
+    </form>
+    </p>
+  </div>
 </div>
 </body>
 </html>

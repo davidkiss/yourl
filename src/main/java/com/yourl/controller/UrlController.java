@@ -4,15 +4,12 @@ import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.service.IUrlStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +43,9 @@ public class UrlController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)
-    public ModelAndView shortenUrl(HttpServletRequest httpRequest, @Valid ShortenUrlRequest request, BindingResult bindingResult) {
+    public ModelAndView shortenUrl(HttpServletRequest httpRequest,
+                                   @Valid ShortenUrlRequest request,
+                                   BindingResult bindingResult) {
         String url = request.getUrl();
         if (!isUrlValid(url)) {
             bindingResult.addError(new ObjectError("url", "Invalid url format: " + url));
@@ -54,10 +53,12 @@ public class UrlController {
 
         ModelAndView modelAndView = new ModelAndView("shortener");
         if (!bindingResult.hasErrors()) {
-            final String id = Hashing.murmur3_32().hashString(url, StandardCharsets.UTF_8).toString();
+            final String id = Hashing.murmur3_32()
+                .hashString(url, StandardCharsets.UTF_8).toString();
             urlStoreService.storeUrl(id, url);
             String requestUrl = httpRequest.getRequestURL().toString();
-            String prefix = requestUrl.substring(0, requestUrl.indexOf(httpRequest.getRequestURI(), "http://".length()));
+            String prefix = requestUrl.substring(0, requestUrl.indexOf(httpRequest.getRequestURI(),
+                "http://".length()));
 
             modelAndView.addObject("shortenedUrl", prefix + "/" + id);
         }
