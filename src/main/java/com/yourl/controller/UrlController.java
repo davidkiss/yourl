@@ -36,7 +36,8 @@ public class UrlController {
     public void redirectToUrl(@PathVariable String id, HttpServletResponse resp) throws Exception {
         final String url = urlStoreService.findUrlById(id);
         if (url != null) {
-            resp.sendRedirect(url);
+            resp.addHeader("Location", url);
+            resp.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
         } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
