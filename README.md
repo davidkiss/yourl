@@ -7,6 +7,8 @@ To run it using maven (http://maven.apache.org):
 $ mvn spring-boot:run
 ```
 
+Then navigate to http://localhost:8080/ in your browser.
+
 ## Components
 
 ### [YourlApplication.java](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/YourlApplication.java)
