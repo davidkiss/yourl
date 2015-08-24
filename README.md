@@ -1,5 +1,6 @@
 # yourl
 Sample url-shortener web application to demonstrate how to build web applications using Java + Spring Boot.
+For more details, see my blog post on this project here: http://kaviddiss.com/2015/07/18/building-modern-web-applications-using-java-spring/.
 
 To run it using maven (http://maven.apache.org):
 ```sh
